@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: 'msamsonoff'
+  description: |
+    This role installs Docker.
+  license: 'MIT'
+  min_ansible_version: 2.9
+  platforms:
+  - name: 'Debian'
+    versions:
+    - 'buster'
+  - name: 'Fedora'
+    versions:
+    - '32'

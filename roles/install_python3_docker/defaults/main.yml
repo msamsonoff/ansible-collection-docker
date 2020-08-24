@@ -1,0 +1,7 @@
+---
+msamsonoff_docker_install_python3_docker_pip_virtualenv: '/opt/docker'
+msamsonoff_docker_install_python3_docker_pip_virtualenv_site_packages: yes
+msamsonoff_docker_install_python3_docker_pip_name: 'docker'
+
+msamsonoff_docker_install_python3_docker_compose: no
+msamsonoff_docker_install_python3_docker_compose_pip_name: 'docker-compose'

@@ -1,0 +1,4 @@
+---
+msamsonoff_docker_install_python3_docker_compose_package_names:
+- 'python3-bcrypt'
+- 'python3-pynacl'

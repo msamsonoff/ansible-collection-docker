@@ -1,0 +1,42 @@
+---
+
+# Support for `docker-compose` is not enabled by default.
+#
+# Some Python packages required by `docker-compose` are fantastically expensive
+# to build on a Raspberry Pi (e.g. `bcrypt`, `pynacl`.) We can install them
+# with the system package manager. This requires two things:
+#
+#   1. The packages are installed *before* the virtualenv is first created.
+#   2. `virtualenv_site_packages` is enabled.
+#
+# These packages have different names between distributions. ):
+
+- name: 'include variables for the Debian family'
+  include_vars: 'family-debian.yml'
+  when: |
+    ansible_os_family == 'Debian'
+
+- name: 'include variables for the RedHat family'
+  include_vars: 'family-redhat.yml'
+  when: |
+    ansible_os_family == 'RedHat'
+
+- name: 'install `docker-compose` dependencies'
+  package:
+    name: '{{ msamsonoff_docker_install_python3_docker_compose_package_names }}'
+  become: yes
+  when: 'msamsonoff_docker_install_python3_docker_compose'
+
+- name: 'create and upgrade the `docker` virtualenv'
+  pip:
+    virtualenv: '{{ msamsonoff_docker_install_python3_docker_pip_virtualenv }}'
+    virtualenv_site_packages: '{{ msamsonoff_docker_install_python3_docker_pip_virtualenv_site_packages }}'
+    name: '{{ msamsonoff_docker_install_python3_docker_pip_name }}'
+  become: yes
+
+- name: 'install `docker-compose` into the `docker` virtualenv'
+  pip:
+    virtualenv: '{{ msamsonoff_docker_install_python3_docker_pip_virtualenv }}'
+    virtualenv_site_packages: '{{ msamsonoff_docker_install_python3_docker_pip_virtualenv_site_packages }}'
+    name: '{{ msamsonoff_docker_install_python3_docker_compose_pip_name }}'
+  become: yes

@@ -1,0 +1,16 @@
+namespace: 'msamsonoff'
+name: 'docker'
+version: '0.1.0'
+readme: 'README.md'
+authors:
+- Matthew W. Samsonoff <matt.samsonoff@gmail.com>
+description: 'Ansible Collection for Docker and Docker Compose'
+license:
+- 'MIT'
+tags:
+dependencies:
+  msamsonoff.core: '>=1.0.0,<2.0.0'
+repository: 'https://github.com/msamsonoff/ansible-collection-docker'
+documentation: 'https://github.com/msamsonoff/ansible-collection-docker/blob/master/README.md'
+homepage: 'https://github.com/msamsonoff/ansible-collection-docker'
+issues: 'https://github.com/msamsonoff/ansible-collection-docker/issues'

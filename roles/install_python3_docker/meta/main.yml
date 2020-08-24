@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: 'msamsonoff'
+  description: |
+    This role installs the Docker SDK for Python 3.
+  license: 'MIT'
+  min_ansible_version: 2.9
+  platforms:
+  - name: 'Debian'
+    versions:
+    - 'buster'
+  - name: 'Fedora'
+    versions:
+    - '32'
+dependencies:
+- role: 'msamsonoff.core.install_python3_virtualenv'

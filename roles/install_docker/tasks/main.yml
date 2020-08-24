@@ -1,0 +1,51 @@
+---
+- include_tasks: 'distribution-debian.yml'
+  when: |
+    ansible_distribution == 'Debian'
+
+- include_tasks: 'distribution-fedora.yml'
+  when: |
+    ansible_distribution == 'Fedora'
+
+- name: 'install Docker'
+  package:
+    name:
+    - 'containerd.io'
+    - 'docker-ce'
+    - 'docker-ce-cli'
+    state: 'present'
+  become: yes
+
+- name: 'create the `/etc/docker` directory'
+  file:
+    path: '/etc/docker'
+    state: 'directory'
+  become: yes
+
+- name: 'create the `/etc/docker/daemon.json` file'
+  copy:
+    dest: '/etc/docker/daemon.json'
+    content: |
+      {{ msamsonoff_docker_install_docker_daemon_json_content }}
+  become: yes
+  notify: 'restart_docker'
+
+- meta: 'flush_handlers'
+
+- name: 'start Docker'
+  service:
+    name: 'docker'
+    enabled: yes
+    state: 'started'
+  become: yes
+
+- name: 'add `{{ ansible_user }}` to the `docker` group'
+  user:
+    name: '{{ ansible_user }}'
+    append: yes
+    groups:
+    - 'docker'
+  become: yes
+  notify: 'reset_connection'
+
+- meta: 'flush_handlers'
